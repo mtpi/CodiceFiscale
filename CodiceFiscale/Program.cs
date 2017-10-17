@@ -33,7 +33,7 @@ namespace CodiceFiscaleCmdLine
                 string Provincia = Console.ReadLine();
                 Console.Write("Livello di omocodia > ");
                 int LivelloOmocodia = Int32.Parse(Console.ReadLine());
-                cf = new CodiceFiscale(Nome, Cognome, Sesso, Nascita, Comune, Provincia, LivelloOmocodia);
+                cf = new CodiceFiscale(Cognome, Nome, Sesso, Nascita, Comune, Provincia, LivelloOmocodia);
             }
             else if (input.KeyChar == '2')
             {

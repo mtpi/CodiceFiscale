@@ -26,7 +26,7 @@ namespace CodiceFiscaleUtility
         public string CodiceComune { get; private set; }
         public string Sesso { get; private set; }
         public int LivelloOmocodia { get; private set; }
-
+        
         public CodiceFiscale(string codiceFiscale) {
             string cfNoOmocodiciRegex = @"^[A-Z]{6}\d{2}" + mesiRegex + @"\d{2}[A-Z]\d{3}[A-Z]";
             string cfRegex = @"^[A-Z]{6}" + omocodiciRegex + "{2}" + mesiRegex + omocodiciRegex + "{2}[A-Z]" + omocodiciRegex + "{3}[A-Z]";
@@ -65,8 +65,8 @@ namespace CodiceFiscaleUtility
                 this.LivelloOmocodia = livelloOmocodiaRagg;
                 this.CodiceNormalizzato = cfNormalizzato.ToString();
             }
-            this.Nome = this.CodiceNormalizzato.Substring(0, 3);
-            this.Cognome = this.CodiceNormalizzato.Substring(3, 3);
+            this.Cognome = this.CodiceNormalizzato.Substring(0, 3);
+            this.Nome = this.CodiceNormalizzato.Substring(3, 3);
             int anno = Int32.Parse(this.CodiceNormalizzato.Substring(6, 2));
             int thisAnno = DateTime.Now.Year;
             thisAnno = thisAnno - ((thisAnno / 100) * 100);
@@ -89,7 +89,7 @@ namespace CodiceFiscaleUtility
             this.CodiceComune = this.CodiceNormalizzato.Substring(11, 4);
             this.comuneProvinciaDaCodice();
         }
-        public CodiceFiscale(string Nome, string Cognome, string Sesso, DateTime Nascita, string CodiceComune, int LivelloOmocodia = 0)
+        public CodiceFiscale(string Cognome, string Nome, string Sesso, DateTime Nascita, string CodiceComune, int LivelloOmocodia = 0)
         {
             if (String.IsNullOrWhiteSpace(Nome))
                 throw new ArgumentException("Nome non impostato");
@@ -111,7 +111,7 @@ namespace CodiceFiscaleUtility
             this.LivelloOmocodia = LivelloOmocodia;
             this.calcolaCodice();
         }
-        public CodiceFiscale(string Nome, string Cognome, string Sesso, DateTime Nascita, string Comune, string Provincia, int LivelloOmocodia = 0)
+        public CodiceFiscale(string Cognome, string Nome, string Sesso, DateTime Nascita, string Comune, string Provincia, int LivelloOmocodia = 0)
         {
             if (String.IsNullOrWhiteSpace(Nome))
                 throw new ArgumentException("Nome non impostato");
@@ -141,7 +141,7 @@ namespace CodiceFiscaleUtility
         private void calcolaCodice()
         {
             StringBuilder tmpCodice = new StringBuilder(16);
-            tmpCodice.Append(calcolaNome(this.Cognome));
+            tmpCodice.Append(calcolaNome(this.Cognome, isCognome: true));
             tmpCodice.Append(calcolaNome(this.Nome));
             tmpCodice.Append(this.Nascita.Year.ToString().Substring(2, 2));
             tmpCodice.Append(convertiMese(this.Nascita.Month));
@@ -195,16 +195,24 @@ namespace CodiceFiscaleUtility
                 throw new Exception("Errore in data.xml negli omocodici");
             return foundRows[0].Field<string>("Lettera");
         }
-        private string calcolaNome(string Nome)
+        private string calcolaNome(string Nome, bool isCognome = false)
         {
-            StringBuilder tmpCodice = new StringBuilder(3);
+            bool consonanteRimossa = false;
+            StringBuilder tmpCodice = new StringBuilder(4);
             foreach (char c in Nome.ToUpper())
             {
                 if (consonanti.IndexOf(c) >= 0)
+                {
                     tmpCodice.Append(c);
-                if (tmpCodice.Length == 3)
-                    break;
+                    if (!consonanteRimossa && !isCognome && tmpCodice.Length == 4)
+                    {
+                        tmpCodice.Remove(1, 1);
+                        consonanteRimossa = true;
+                    }
+                }
             }
+            if (tmpCodice.Length > 3)
+                tmpCodice.Remove(3, tmpCodice.Length - 3);
             if (tmpCodice.Length < 3)
             {
                 foreach (char c in Nome.ToUpper())
