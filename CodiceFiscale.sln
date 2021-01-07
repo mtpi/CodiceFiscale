@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodiceFiscale", "CodiceFiscale\CodiceFiscale.csproj", "{1AC738F5-89B5-4B1A-A02D-7C658B12F0B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodiceFiscaleGUI", "CodiceFiscaleGUI\CodiceFiscaleGUI.csproj", "{281CE52C-C5A8-4FE6-AF0A-6EDCD3205F4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{1AC738F5-89B5-4B1A-A02D-7C658B12F0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AC738F5-89B5-4B1A-A02D-7C658B12F0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AC738F5-89B5-4B1A-A02D-7C658B12F0B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{281CE52C-C5A8-4FE6-AF0A-6EDCD3205F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281CE52C-C5A8-4FE6-AF0A-6EDCD3205F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281CE52C-C5A8-4FE6-AF0A-6EDCD3205F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281CE52C-C5A8-4FE6-AF0A-6EDCD3205F4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00090CE9-60C4-4834-B2F1-FB69321E55F2}
 	EndGlobalSection
 EndGlobal
