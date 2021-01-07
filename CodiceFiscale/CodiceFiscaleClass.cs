@@ -241,7 +241,8 @@ namespace CodiceFiscaleUtility
         }
         private void codiceDaComuneProvincia()
         {
-            DataRow[] foundRows = data.Tables["Comuni"].Select("Nome = '" + this.Comune + "' And Provincia ='" + this.Provincia + "'");
+            string comune = this.Comune.Replace("'", "''");
+            DataRow[] foundRows = data.Tables["Comuni"].Select("Nome = '" + comune + "' And Provincia ='" + this.Provincia + "'");
             if (foundRows.Length != 1)
                 throw new ArgumentException("Comune e Provincia non trovati");
             DataRow comuneRow = foundRows[0];
